@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Inter, system-ui, sans-serif;
+}
+#app {
+  min-height: 100vh;
+  background: #212228;
+}
