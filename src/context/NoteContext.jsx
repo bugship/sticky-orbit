@@ -1,3 +1,12 @@
+/**
+ * NoteContext — global notes state for the board.
+ *
+ * Provides:
+ *  - notes / setNotes
+ *  - selectedNote / setSelectedNote  (for color picker targeting)
+ *  - error                           (Appwrite load failures)
+ *  - loading spinner on first fetch
+ */
 import { createContext, useState, useEffect } from "react";
 import Spinner from "../icons/Spinner";
 import { db } from "../appwrite/databases";
@@ -14,6 +23,7 @@ const NotesProvider = ({ children }) => {
     init();
   }, []);
 
+  /** Load all notes from Appwrite once on mount. */
   const init = async () => {
     try {
       const response = await db.notes.list();

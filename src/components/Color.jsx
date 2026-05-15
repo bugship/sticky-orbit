@@ -1,15 +1,20 @@
-import React, { useContext } from "react";
+/**
+ * Single color swatch — applies this palette entry to the currently selected note.
+ */
+import { useContext } from "react";
 import { NoteContext } from "../context/NoteContext";
 import { db } from "../appwrite/databases";
 
 function Color({ color }) {
   const { selectedNote, notes, setNotes } = useContext(NoteContext);
+
   const changeColor = () => {
     try {
       const currentNoteIndex = notes.findIndex(
-        (note) => note.$id === selectedNote.$id
+        (note) => note.$id === selectedNote.$id,
       );
 
+      // Optimistic UI update, then persist to Appwrite.
       const updatedNote = {
         ...notes[currentNoteIndex],
         colors: JSON.stringify(color),
@@ -21,9 +26,11 @@ function Color({ color }) {
 
       db.notes.update(selectedNote.$id, { colors: JSON.stringify(color) });
     } catch (error) {
+      // selectedNote is null when the user has not focused a card yet.
       alert("You must select a note before changing colors");
     }
   };
+
   return (
     <div
       className="color"

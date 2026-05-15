@@ -1,36 +1,37 @@
-# Ideal System
+# Sticky Orbit
 
-Interactive sticky-notes board built with React, Vite, and Appwrite. Drag notes freely, pick colors, and auto-save changes through Appwrite Databases.
+Interactive sticky-notes board built with React, Vite, and Appwrite Databases. Create notes, drag them on a freeform board, pick colors, and auto-save changes to the cloud.
 
 ## Features
 
 - Create, edit, and delete notes
-- Drag-and-drop positioning
-- Color themes
-- Debounced auto-save
-- Loading and error states for Appwrite connectivity
+- Drag-and-drop positioning on the board
+- Color themes (palette in `src/assets/colors.json`)
+- Debounced auto-save of note body and position
+- Loading spinner and error banner when Appwrite is unreachable
+- Appwrite as Backend-as-a-Service (no custom API server required)
 
 ## Tech Stack
 
 | Layer | Choice |
 |-------|--------|
 | UI | React 18 + Vite |
-| Backend | Appwrite (BaaS) |
+| Backend | Appwrite Databases (BaaS) |
 | State | React Context |
 
 ## Structure
 
 ```
-ideal-system/
+sticky-orbit/
 ├── public/
 ├── src/
-│   ├── appwrite/       # Client + collection helpers
+│   ├── appwrite/       # Client + collection CRUD helpers
 │   ├── assets/         # Color palette
 │   ├── components/     # NoteCard, Controls, buttons
 │   ├── context/        # NotesProvider
 │   ├── icons/
 │   ├── pages/          # NotesPage
-│   └── utils.js
+│   └── utils.js        # Drag math, textarea grow, body parse
 ├── package.json
 └── vite.config.js
 ```
@@ -38,8 +39,8 @@ ideal-system/
 ## Setup
 
 ```bash
-git clone https://github.com/bugship/ideal-system.git
-cd ideal-system
+git clone https://github.com/bugship/sticky-orbit.git
+cd sticky-orbit
 npm install
 cp .env.example .env
 # fill Appwrite project/database/collection IDs
@@ -52,7 +53,7 @@ App: `http://localhost:5173`
 
 | Field | Type | Content |
 |-------|------|---------|
-| `body` | string | Note text (JSON string) |
+| `body` | string | Note text (JSON-encoded string) |
 | `colors` | string | JSON color object |
 | `position` | string | JSON `{ x, y }` |
 

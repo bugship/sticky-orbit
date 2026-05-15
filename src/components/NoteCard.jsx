@@ -1,3 +1,15 @@
+/**
+ * NoteCard — a single draggable sticky note.
+ *
+ * Data fields (stored as JSON strings in Appwrite):
+ *  - body      → note text
+ *  - colors    → { id, colorHeader, colorBody, colorText }
+ *  - position  → { x, y }
+ *
+ * Saves:
+ *  - body after 2s debounce on keyup
+ *  - position on mouseup after a drag
+ */
 import { useRef, useEffect, useState, useContext } from "react";
 import { db } from "../appwrite/databases";
 import DeleteButton from "./DeleteButton";
@@ -23,6 +35,7 @@ const NoteCard = ({ note }) => {
     setZIndex(cardRef.current);
   }, []);
 
+  /** Start drag only when the user presses on the header bar (not the textarea). */
   const mouseDown = (e) => {
     if (e.target.className !== "card-header") return;
 
@@ -42,6 +55,7 @@ const NoteCard = ({ note }) => {
     setPosition(setNewOffset(cardRef.current, mouseMoveDir));
   };
 
+  /** Persist a single field to Appwrite (body or position). */
   const saveData = async (key, value) => {
     const payload = { [key]: JSON.stringify(value) };
     try {
@@ -53,6 +67,7 @@ const NoteCard = ({ note }) => {
     }
   };
 
+  /** Debounce body saves so we do not hit the API on every keystroke. */
   const handleKeyUp = () => {
     setSaving(true);
     if (keyUpTimer.current) clearTimeout(keyUpTimer.current);

@@ -1,3 +1,6 @@
+/**
+ * Left-side control rail: add-note button + one swatch per palette color.
+ */
 import AddButton from "./AddButton";
 import colors from "../assets/colors.json";
 import Color from "./Color";
@@ -12,4 +15,5 @@ const Controls = () => {
     </div>
   );
 };
+
 export default Controls;

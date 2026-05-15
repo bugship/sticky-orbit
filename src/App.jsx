@@ -1,3 +1,6 @@
+/**
+ * App root — wraps the notes board in NoteContext so all children share note state.
+ */
 import NotesProvider from "./context/NoteContext";
 import NotesPage from "./pages/NotesPage";
 

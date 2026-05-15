@@ -1,3 +1,11 @@
+/**
+ * Board geometry and note helpers used by NoteCard.
+ */
+
+/**
+ * Compute a new {x,y} for a card after a mouse move.
+ * Clamps to non-negative coordinates so notes cannot leave the board top-left.
+ */
 export const setNewOffset = (card, mouseMoveDir = { x: 0, y: 0 }) => {
   const offsetLeft = card.offsetLeft - mouseMoveDir.x;
   const offsetTop = card.offsetTop - mouseMoveDir.y;
@@ -8,12 +16,18 @@ export const setNewOffset = (card, mouseMoveDir = { x: 0, y: 0 }) => {
   };
 };
 
+/**
+ * Grow a textarea to fit its content (used while typing on a note).
+ */
 export function autoGrow(textAreaRef) {
   const { current } = textAreaRef;
-  current.style.height = "auto"; // Reset the height
-  current.style.height = current.scrollHeight + "px"; // Set the new height
+  current.style.height = "auto";
+  current.style.height = current.scrollHeight + "px";
 }
 
+/**
+ * Bring the selected card to the front and lower z-index of others.
+ */
 export const setZIndex = (selectedCard) => {
   selectedCard.style.zIndex = 999;
 
@@ -24,6 +38,10 @@ export const setZIndex = (selectedCard) => {
   });
 };
 
+/**
+ * Notes store body as a JSON-encoded string in Appwrite.
+ * Parse when possible; fall back to raw value for legacy/plain data.
+ */
 export const bodyParser = (value) => {
   try {
     return JSON.parse(value);

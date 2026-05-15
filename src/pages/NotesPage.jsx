@@ -1,3 +1,6 @@
+/**
+ * NotesPage — renders every note as a NoteCard plus the floating Controls rail.
+ */
 import { useContext } from "react";
 import NoteCard from "../components/NoteCard";
 import Controls from "../components/Controls";
@@ -8,6 +11,7 @@ const NotesPage = () => {
 
   return (
     <div>
+      {/* Banner when Appwrite is misconfigured or unreachable */}
       {error && (
         <div
           style={{
