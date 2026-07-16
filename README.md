@@ -1,4 +1,6 @@
-# Sticky Orbit
+# Cloud Sticky-Notes Board
+
+> Repository: `sticky-orbit` · https://github.com/bugship/sticky-orbit
 
 Interactive sticky-notes board built with React, Vite, and Appwrite Databases. Create notes, drag them on a freeform board, pick colors, and auto-save changes to the cloud.
 
